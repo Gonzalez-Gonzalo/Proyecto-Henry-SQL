@@ -11,7 +11,7 @@ El concepto de big data ostenta una relevancia fundamental en las corporaciones 
 fundamentales conocidos como las "3V": velocidad, volumen y variedad. Estos elementos constituyen pilares esenciales para comprender y abordar los 
 retos inherentes a la gestión de conjuntos masivos de datos en entornos empresariales de gran complejidad.
 
-##Proyecto Integrador Gonzalo Gonzalez
+#Proyecto Integrador Gonzalo Gonzalez
 
 En la practica integradora nos solicitan realizar la configuracion sobre una Maquina Virtual Linux, en la cuales comenzaremos con clonar el 
 directorio propuesto por el proyecto 

@@ -62,7 +62,7 @@ ERROR: Encountered errors while bringing up the project.
 En este punto noto que al intentar iniciar el entorno zookeeper_container este falla al estar siendo ocupado por el comando anterior, es decir 
 sudo docker-compose -f docker-compose-kafka.yml up -d, proceso a bajar dicho entorno buscando el id con el comando sudo docker ps, una vez 
 identificado el id ejecuto sudo docker stop {ID}, continuo con la ejecucion.
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker-compose -f docker-compose-v2.yml up -d
 WARNING: Found orphan containers (zoo, hbase-master, mongodb, hbase-regionserver, zookeeper_container, kafka_container, neo4j, kafka_manager, spark-master, spark-worker-1, zeppelin) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
 historyserver is up-to-date
@@ -73,9 +73,9 @@ nodemanager is up-to-date
 datanode is up-to-date
 resourcemanager is up-to-date
 Recreating hive-server ... done
-
+```
 y por ultimo
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker-compose -f docker-compose-v1.yml up -d
 WARNING: Found orphan containers (kafka_manager, spark-master, hive-metastore-postgresql, hive-metastore, hbase-master, hbase-regionserver, neo4j, zookeeper_container, kafka_container, mongodb, spark-worker-1, hive-server, zoo, zeppelin) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
 nodemanager is up-to-date
@@ -83,31 +83,31 @@ historyserver is up-to-date
 resourcemanager is up-to-date
 namenode is up-to-date
 datanode is up-to-date
-
+```
 una vez levantado todos los entornos propuestos contunuo con el punto numero uno
 
 1) HDFS
 
 Copio los archivos ubicados en la carpeta Datasets, dentro del contenedor "namenode" con los siguientes comandos
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker exec -it namenode bash
 root@9b8bf947e163:/# cd home
 root@9b8bf947e163:/home# mkdir Datasets
 root@9b8bf947e163:/home# exit
-
+```
 Luego ejecuto la sentencia sugerida por  el redme y me encuentro con el siguiente inconveniente 
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker cp herramientas_big_data/Datasets namenode:/home/Datasets
 lstat /home/adminstaller/herramientas_big_data/herramientas_big_data: no such file or directory
-
+```
 entendiendo que como ya estamos posicionados en carpeta herramientas_big_data no hace falta volverla a declarar, por ende corrijo mi sentencia y 
 vuelvo a ejecutar
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker cp Datasets namenode:/home/Datasets/
 Successfully copied 74.1MB to namenode:/home/Datasets/
-
+```
 me vuelvo a posicionar en el contenedor "namenode" y ejecuto
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$   sudo docker exec -it namenode bash
 root@9b8bf947e163:/#   hdfs dfs -mkdir -p /data
 root@9b8bf947e163:/#   hdfs dfs -put /home/Datasets/* /data
@@ -130,24 +130,24 @@ root@9b8bf947e163:/#   hdfs dfs -put /home/Datasets/* /data
 2023-12-10 21:38:54,163 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
 2023-12-10 21:38:54,252 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
 2023-12-10 21:38:54,716 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
-
+```
 Luego de realizar las tareas, no pude realizar la corroboracion propuesta en la nota dado que no pude encontrar dfs.blocksize y dfs.replication 
  por desconocer el IP del VM, lo cual uds proponen debe de ser http://<IP_Anfitrion>:9870/conf 
 
 2) Hive
 
 Como primer medida realizamos el paso de los archivos HQL ubicados en nuestra carpeta herramientas_big_data, nomprados como Paso02,03 y 04 
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker cp /home/adminstaller/herramientas_big_data/Paso02.hql hive-server:/home
 Successfully copied 6.66kB to hive-server:/home
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker cp /home/adminstaller/herramientas_big_data/Paso03.hql hive-server:/home
 Successfully copied 7.68kB to hive-server:/home
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker cp /home/adminstaller/herramientas_big_data/Paso04.hql hive-server:/home
 Successfully copied 2.05kB to hive-server:/home
-
+```
 Luego creamos las Tablas en Hive. Para esto, nos ubicamos en contenedor correspondiente al servidor de Hive, y ejecutar desdea allí los scripts necesarios
 
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$   sudo docker exec -it hive-server bash
 root@67bd040ac32b:/opt# hive -f /home/Paso02.hql
 SLF4J: Class path contains multiple SLF4J bindings.
@@ -525,7 +525,7 @@ OK
 Time taken: 4.102 seconds
 OK
 Time taken: 0.209 seconds
-
+```
 Luego de ejecutar los 3 archivo HQL revisamos que se encuentren en nuestro entorno
 
 
@@ -534,15 +534,15 @@ Luego de ejecutar los 3 archivo HQL revisamos que se encuentren en nuestro entor
 A) HBase:
 
 Segun lo propuesto en el readme del proyecto realizamos la ejecucion del comando
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker exec -it hbase-master hbase shell
 2023-12-10 22:06:39,898 WARN  [main] util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 HBase Shell; enter 'help<RETURN>' for list of supported commands.
 Type "exit<RETURN>" to leave the HBase Shell
 Version 1.2.6, rUnknown, Mon May 29 02:25:32 CDT 2017
-
+```
 y ya en el shell script de hbase ejecutamos
-
+```
   hbase(main):001:0> create 'personal','personal_data'
   hbase> create 't1', {NAME => 'f1'}, {NAME => 'f2'}, {NAME => 'f3'}
   hbase> # The above in shorthand would be the following:
@@ -614,21 +614,19 @@ COLUMN                                   CELL
 2 row(s) in 0.0480 seconds
 
 hbase(main):014:0>
-
-
+```
 Luego de ejecutar estos scripts salimos del shell script de hbase con Ctrl+D y nos volvemos al cluster de namenode
-
+```
 hbase(main):014:0> adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker exec -it namenode bash
-
+```
 y alli dentro ejecutamos
-
+```
 root@9b8bf947e163:/# hdfs dfs -put personal.csv /hbase/data/personal.csv
 put: `/hbase/data/personal.csv': File exists
 root@9b8bf947e163:/#
-
-
+```
 Luego nos movemos al shell de hbase.
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker exec -it hbase-master bash
 root@hbase-master:/# hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=',' -Dimporttsv.columns=HBASE_ROW_KEY,personal_data:name,personal_data:city,personal_data:age personal hdfs://namenode:9000/hbase/data/personal.csv
 2023-12-10 22:10:14,264 WARN  [main] util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
@@ -798,10 +796,10 @@ org.apache.hadoop.hbase.TableNotFoundException: Table 'hbase:labels' was not fou
                 Bytes Read=94
         File Output Format Counters
                 Bytes Written=0
-
+```
 y ya dentro del shell ejecutamos 
 
-
+```
 root@hbase-master:/# hbase shell
 2023-12-10 22:10:41,580 WARN  [main] util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 HBase Shell; enter 'help<RETURN>' for list of supported commands.
@@ -899,23 +897,23 @@ COLUMN                                   CELL
  label:size                              timestamp=1702246270938, value=10
  label:text                              timestamp=1702246286343, value=Family album
 5 row(s) in 0.0490 seconds
-
+```
 salimos del shell con Ctrl+DF
 
 
 B) MongoDB
 
 Me muevo a la carpeta Datasets y copiamos los archivos iris.csv e iris.json
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ cd Datasets/
 adminstaller@Labo-AZ10:~/herramientas_big_data/Datasets$ sudo docker cp iris.csv mongodb:/data/iris.csv
 Successfully copied 6.66kB to mongodb:/data/iris.csv
 adminstaller@Labo-AZ10:~/herramientas_big_data/Datasets$ sudo docker cp iris.json mongodb:/data/iris.json
 Successfully copied 17.4kB to mongodb:/data/iris.json
 adminstaller@Labo-AZ10:~/herramientas_big_data/Datasets$
-
+```
 Luego me voy al shell de mongodb e importo
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data/Datasets$ sudo docker exec -it mongodb bash
 root@86dcf5a8a344:/# mongoimport /data/iris.csv --type csv --headerline -d dataprueba -c iris_csv
 2023-12-10T22:13:34.649+0000    connected to: mongodb://localhost/
@@ -923,9 +921,9 @@ root@86dcf5a8a344:/# mongoimport /data/iris.csv --type csv --headerline -d datap
 root@86dcf5a8a344:/# mongoimport --db dataprueba --collection iris_json --file /data/iris.json --jsonArray
 2023-12-10T22:13:45.258+0000    connected to: mongodb://localhost/
 2023-12-10T22:13:45.273+0000    150 document(s) imported successfully. 0 document(s) failed to import.
-
+```
 ejecuto mogosh y ejecuto lo propuesto en el readme
-
+```
 root@86dcf5a8a344:/# mongosh
 Current Mongosh Log ID: 6576383bf97e789596c8fb4f
 Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.0
@@ -1295,10 +1293,10 @@ dataprueba> db.iris_json.find()
   }
 ]
 Type "it" for more
-
+```
 Vuelvo al shell de mongodb y ejecuto para exportar y escapo
 
-
+```
 root@86dcf5a8a344:/# mongoexport --db dataprueba --collection iris_csv --fields sepal_length,sepal_width,petal_length,petal_width,species --type=csv --out /data/iris_export.csv
 2023-12-10T22:22:51.535+0000    connected to: mongodb://localhost/
 2023-12-10T22:22:51.554+0000    exported 300 records
@@ -1306,9 +1304,9 @@ root@86dcf5a8a344:/# mongoexport --db dataprueba --collection iris_json --fields
 2023-12-10T22:23:13.175+0000    connected to: mongodb://localhost/
 2023-12-10T22:23:13.183+0000    exported 300 records
 root@86dcf5a8a344:/exit
-
+```
 Me posiciono en la carpeta Mongo y copio los archivos .jar
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ cd Mongo/
 adminstaller@Labo-AZ10:~/herramientas_big_data/Mongo$ sudo docker cp mongo-hadoop-hive-2.0.2.jar hive-server:/opt/hive/lib/mongo-hadoop-hive-2.0.2.jar
 Successfully copied 30.2kB to hive-server:/opt/hive/lib/mongo-hadoop-hive-2.0.2.jar
@@ -1319,10 +1317,10 @@ Successfully copied 1.65MB to hive-server:/opt/hive/lib/mongo-hadoop-spark-2.0.2
 adminstaller@Labo-AZ10:~/herramientas_big_data/Mongo$ sudo docker cp mongo-java-driver-3.12.11.jar hive-server:/opt/hive/lib/mongo-java-driver-3.12.11.jar
 Successfully copied 2.32MB to hive-server:/opt/hive/lib/mongo-java-driver-3.12.11.jar
 adminstaller@Labo-AZ10:~/herramientas_big_data/Mongo$
-
+```
 Subo un directorio de la carpeta y copio el archivo iris.hql me voy al shell de hive e inicio HiveServer2, para darle permisos 777 al archivo 
 iris.hql
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data/Mongo$ cd ..
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker cp iris.hql hive-server:/opt/iris.hql
 Successfully copied 2.56kB to hive-server:/opt/iris.hql
@@ -1346,11 +1344,11 @@ Logging initialized using configuration in file:/opt/hive/conf/hive-log4j2.prope
 File does not exist: hdfs://namenode:9000/tmp/udfs/mongo-java-driver-3.12.11.jar
 Query returned non-zero code: 1, cause: java.io.FileNotFoundException: File does not exist: hdfs://namenode:9000/tmp/udfs/mongo-java-driver-3.12.11.jar
 root@67bd040ac32b:/opt#exit
-
+```
 6) Spark
 
 1) Spark y Scala: Ejecuto comandos del Spark master y comenzar PySpark.
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ docker exec -it spark-master bash
 permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/spark-master/json": dial unix /var/run/docker.sock: connect: permission denied
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker exec -it spark-master bash
@@ -1383,10 +1381,10 @@ SparkSession available as 'spark'.
 ...     StructField("DepDelay", IntegerType(), False),
 ...     StructField("ArrDelay", IntegerType(), False),
 ...     ]);
-
+```
 En este punto el readme sugiere ejecutar flights = spark.read.csv('hdfs://namenode:9000/data/flights/raw-flight-data.csv', schema=flightSchema, 
 header=True) pero esto no se encuentra en dicho directorio, si no en
-  
+ ``` 
 >>> flights = spark.read.csv('hdfs://namenode:9000/data/Datasets/raw-flight-data.csv', schema=flightSchema, header=True)
 >>> flights.show()
 +----------+---------+-------+---------------+-------------+--------+--------+
@@ -1418,9 +1416,9 @@ only showing top 20 rows
 >>> flights.describe()
 DataFrame[summary: string, DayofMonth: string, DayOfWeek: string, Carrier: string, OriginAirportID: string, DestAirportID: string, DepDelay: string, ArrDelay: string]
 >>>
-
+```
 Ejecuto comandos del Spark master y comenzar Scala.
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker exec -it spark-master bash
 bash-5.0# spark/bin/spark-shell --master spark://spark-master:7077
 23/12/11 04:04:01 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
@@ -1443,10 +1441,10 @@ Type :help for more information.
 
 scala> case class flightSchema(DayofMonth:String, DayOfWeek:String, Carrier:String, OriginAirportID:String, DestAirportID:String, DepDelay:String, ArrDelay:String)
 defined class flightSchema
-
+```
 En este punto el readme sugiere ejecutar val flights = spark.read.format("csv").option("sep", ",").option("header", "true").
 load("hdfs://namenode:9000/data/flights/raw-flight-data.csv").as[flightSchema]pero esto no se encuentra en dicho directorio, si no en
-
+```
 scala> val flights = spark.read.format("csv").option("sep", ",").option("header", "true").load("hdfs://namenode:9000/data/Datasets/raw-flight-data.csv").as[flightSchema]
 flights: org.apache.spark.sql.Dataset[flightSchema] = [DayofMonth: string, DayOfWeek: string ... 5 more fields]
 
@@ -1476,13 +1474,13 @@ scala> flights.show()
 |        19|        5|     DL|          13204|        10397|       8|      25|
 +----------+---------+-------+---------------+-------------+--------+--------+
 only showing top 20 rows
-
+```
 
 B) Kafka
 
 Este punto no pude ejecutarlo dado que al intentar conectar con bootstrap-server nos da timeout la consola, dejo evidencia.
 
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker exec -it kafka_container bash
 bash-4.4# cd /opt/kafka/bin
 bash-4.4# sh kafka-topics.sh --create --bootstrap-server kafka:9092 --replication-factor 1 --partitions 100 --topic demo
@@ -1510,10 +1508,10 @@ Error while executing topic command : org.apache.kafka.common.errors.TimeoutExce
 Caused by: org.apache.kafka.common.errors.TimeoutException: Timed out waiting to send the call.
  (kafka.admin.TopicCommand$)
 bash-4.4#
-
+```
 C Comparativa Dataset y Dataframe en Scala: En este punto no pude avanzar dado que no encuentro la fuente de este errorm quizas este asociado 
 con la falta de conecion del punto B
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker cp pruebaPySpark.py spark-master:pruebaPySpark.py
 Successfully copied 3.07kB to spark-master:pruebaPySpark.py
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker cp pruebaScala.scala spark-master:pruebaScala.scala
@@ -1614,4 +1612,4 @@ scala> /spark/bin/pyspark --master spark://spark-master:7077
                                             ^
 
 scala>
-
+```

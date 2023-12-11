@@ -17,11 +17,11 @@ siguiente comando git clone https://github.com/lopezdar222/herramientas_big_data
 en la consulta  cd herramientas_big_data, luego de ellos comenzamos con levantar todos los entornos de docker, a continuacion declaro los
 respectivos comandos y sus resultados
 
-```adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker-compose -f docker-compose-kafka.yml up -d
+adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker-compose -f docker-compose-kafka.yml up -d
 WARNING: Found orphan containers (resourcemanager, mongodb, hive-metastore-postgresql, neo4j, historyserver, zoo, spark-master, hive-server, zeppelin, hbase-regionserver, nodemanager, datanode, hive-metastore, spark-worker-1, namenode, hbase-master) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
 zookeeper_container is up-to-date
 kafka_container is up-to-date
-kafka_manager is up-to-date```
+kafka_manager is up-to-date
 
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker-compose -f docker-compose-v4.yml up -d
 WARNING: Found orphan containers (neo4j, hive-metastore-postgresql, zeppelin, hive-metastore, hive-server, zookeeper_container, hbase-master, kafka_container, zoo, mongodb, hbase-regionserver, kafka_manager) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.

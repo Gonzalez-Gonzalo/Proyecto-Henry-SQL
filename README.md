@@ -14,7 +14,9 @@ retos inherentes a la gestión de conjuntos masivos de datos en entornos empresa
 ##Proyecto Integrador Gonzalo Gonzalez
 
 En la practica integradora nos solicitan realizar la configuracion sobre una Maquina Virtual Linux, en la cuales comenzaremos con clonar el 
-directorio propuesto por el proyecto `https://github.com/soyHenry/DS-M4-Herramientas_Big_Data/tree/main`, el cual nos indica que debe de ser con el 
+directorio propuesto por el proyecto 
+`https://github.com/soyHenry/DS-M4-Herramientas_Big_Data/tree/main`
+ el cual nos indica que debe de ser con el 
 siguiente comando `git clone https://github.com/lopezdar222/herramientas_big_data`, una vez realizado esto procedemos a movernos de carpeta ingresando 
 en la consulta  `cd herramientas_big_data`, luego de ellos comenzamos con levantar todos los entornos de docker, a continuacion declaro los
 respectivos comandos y sus resultados

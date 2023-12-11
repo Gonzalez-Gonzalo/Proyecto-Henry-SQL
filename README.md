@@ -11,7 +11,7 @@ El concepto de big data ostenta una relevancia fundamental en las corporaciones 
 fundamentales conocidos como las "3V": velocidad, volumen y variedad. Estos elementos constituyen pilares esenciales para comprender y abordar los 
 retos inherentes a la gestión de conjuntos masivos de datos en entornos empresariales de gran complejidad.
 
-#Proyecto Integrador Gonzalo Gonzalez
+## Proyecto Integrador Gonzalo Gonzalez
 
 En la practica integradora nos solicitan realizar la configuracion sobre una Maquina Virtual Linux, en la cuales comenzaremos con clonar el 
 directorio propuesto por el proyecto 
@@ -90,7 +90,7 @@ datanode is up-to-date
 ```
 una vez levantado todos los entornos propuestos contunuo con el punto numero uno
 
-1) HDFS
+### 1) HDFS
 
 Copio los archivos ubicados en la carpeta Datasets, dentro del contenedor "namenode" con los siguientes comandos
 ```
@@ -138,7 +138,7 @@ root@9b8bf947e163:/#   hdfs dfs -put /home/Datasets/* /data
 Luego de realizar las tareas, no pude realizar la corroboracion propuesta en la nota dado que no pude encontrar dfs.blocksize y dfs.replication 
  por desconocer el IP del VM, lo cual uds proponen debe de ser http://<IP_Anfitrion>:9870/conf 
 
-2) Hive
+### 2) Hive
 
 Como primer medida realizamos el paso de los archivos HQL ubicados en nuestra carpeta herramientas_big_data, nomprados como Paso02,03 y 04 
 ```
@@ -533,9 +533,9 @@ Time taken: 0.209 seconds
 Luego de ejecutar los 3 archivo HQL revisamos que se encuentren en nuestro entorno
 
 
-5) No-SQL
+### 5) No-SQL
 
-A) HBase:
+#### A) HBase:
 
 Segun lo propuesto en el readme del proyecto realizamos la ejecucion del comando
 ```
@@ -905,7 +905,7 @@ COLUMN                                   CELL
 salimos del shell con Ctrl+DF
 
 
-B) MongoDB
+#### B) MongoDB
 
 Me muevo a la carpeta Datasets y copiamos los archivos iris.csv e iris.json
 ```
@@ -1349,9 +1349,9 @@ File does not exist: hdfs://namenode:9000/tmp/udfs/mongo-java-driver-3.12.11.jar
 Query returned non-zero code: 1, cause: java.io.FileNotFoundException: File does not exist: hdfs://namenode:9000/tmp/udfs/mongo-java-driver-3.12.11.jar
 root@67bd040ac32b:/opt#exit
 ```
-6) Spark
+### 6) Spark
 
-1) Spark y Scala: Ejecuto comandos del Spark master y comenzar PySpark.
+#### A) Spark y Scala: Ejecuto comandos del Spark master y comenzar PySpark.
 ```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ docker exec -it spark-master bash
 permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/spark-master/json": dial unix /var/run/docker.sock: connect: permission denied
@@ -1480,7 +1480,7 @@ scala> flights.show()
 only showing top 20 rows
 ```
 
-B) Kafka
+#### B) Kafka
 
 Este punto no pude ejecutarlo dado que al intentar conectar con bootstrap-server nos da timeout la consola, dejo evidencia.
 

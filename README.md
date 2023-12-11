@@ -24,7 +24,7 @@ zookeeper_container is up-to-date
 kafka_container is up-to-date
 kafka_manager is up-to-date
 ```
-
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker-compose -f docker-compose-v4.yml up -d
 WARNING: Found orphan containers (neo4j, hive-metastore-postgresql, zeppelin, hive-metastore, hive-server, zookeeper_container, hbase-master, kafka_container, zoo, mongodb, hbase-regionserver, kafka_manager) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
 historyserver is up-to-date
@@ -34,7 +34,8 @@ resourcemanager is up-to-date
 nodemanager is up-to-date
 spark-master is up-to-date
 spark-worker-1 is up-to-date
-
+```
+```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker-compose -f docker-compose-v3.yml up -d
 WARNING: Found orphan containers (kafka_container, zookeeper_container, spark-master, spark-worker-1, kafka_manager) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
 hive-metastore-postgresql is up-to-date
@@ -57,7 +58,7 @@ ERROR: for zoo  Cannot start service zoo: driver failed programming external con
 
 ERROR: for zoo  Cannot start service zoo: driver failed programming external connectivity on endpoint zoo (4e95cc3b2aa7d847f38224e5afe87f82cc0a982b93aae89e42c9249ae1cc1223): Bind for 0.0.0.0:2181 failed: port is already allocated
 ERROR: Encountered errors while bringing up the project.
-
+```
 En este punto noto que al intentar iniciar el entorno zookeeper_container este falla al estar siendo ocupado por el comando anterior, es decir 
 sudo docker-compose -f docker-compose-kafka.yml up -d, proceso a bajar dicho entorno buscando el id con el comando sudo docker ps, una vez 
 identificado el id ejecuto sudo docker stop {ID}, continuo con la ejecucion.

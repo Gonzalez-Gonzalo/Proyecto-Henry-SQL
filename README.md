@@ -64,8 +64,8 @@ ERROR: for zoo  Cannot start service zoo: driver failed programming external con
 ERROR: Encountered errors while bringing up the project.
 ```
 En este punto noto que al intentar iniciar el entorno zookeeper_container este falla al estar siendo ocupado por el comando anterior, es decir 
-sudo docker-compose -f docker-compose-kafka.yml up -d, proceso a bajar dicho entorno buscando el id con el comando sudo docker ps, una vez 
-identificado el id ejecuto sudo docker stop {ID}, continuo con la ejecucion.
+`sudo docker-compose -f docker-compose-kafka.yml up -d`, proceso a bajar dicho entorno buscando el id con el comando `sudo docker ps`, una vez 
+identificado el id ejecuto `sudo docker stop {ID}`, continuo con la ejecucion.
 ```
 adminstaller@Labo-AZ10:~/herramientas_big_data$ sudo docker-compose -f docker-compose-v2.yml up -d
 WARNING: Found orphan containers (zoo, hbase-master, mongodb, hbase-regionserver, zookeeper_container, kafka_container, neo4j, kafka_manager, spark-master, spark-worker-1, zeppelin) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
@@ -1386,8 +1386,8 @@ SparkSession available as 'spark'.
 ...     StructField("ArrDelay", IntegerType(), False),
 ...     ]);
 ```
-En este punto el readme sugiere ejecutar flights = spark.read.csv('hdfs://namenode:9000/data/flights/raw-flight-data.csv', schema=flightSchema, 
-header=True) pero esto no se encuentra en dicho directorio, si no en
+En este punto el readme sugiere ejecutar `flights = spark.read.csv('hdfs://namenode:9000/data/flights/raw-flight-data.csv', schema=flightSchema, 
+header=True)` pero esto no se encuentra en dicho directorio, si no en
  ``` 
 >>> flights = spark.read.csv('hdfs://namenode:9000/data/Datasets/raw-flight-data.csv', schema=flightSchema, header=True)
 >>> flights.show()
@@ -1446,8 +1446,8 @@ Type :help for more information.
 scala> case class flightSchema(DayofMonth:String, DayOfWeek:String, Carrier:String, OriginAirportID:String, DestAirportID:String, DepDelay:String, ArrDelay:String)
 defined class flightSchema
 ```
-En este punto el readme sugiere ejecutar val flights = spark.read.format("csv").option("sep", ",").option("header", "true").
-load("hdfs://namenode:9000/data/flights/raw-flight-data.csv").as[flightSchema]pero esto no se encuentra en dicho directorio, si no en
+En este punto el readme sugiere ejecutar `val flights = spark.read.format("csv").option("sep", ",").option("header", "true").
+load("hdfs://namenode:9000/data/flights/raw-flight-data.csv").as[flightSchema]` pero esto no se encuentra en dicho directorio, si no en
 ```
 scala> val flights = spark.read.format("csv").option("sep", ",").option("header", "true").load("hdfs://namenode:9000/data/Datasets/raw-flight-data.csv").as[flightSchema]
 flights: org.apache.spark.sql.Dataset[flightSchema] = [DayofMonth: string, DayOfWeek: string ... 5 more fields]
